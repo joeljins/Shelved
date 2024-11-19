@@ -1,24 +1,20 @@
 import { Router } from "express";
 import services from "services/index.js";
 
-
-
 const getSearchRouter = () => {
   const router = Router();
   const tmdbService = services["tmdb"];
 
-  router.get("/search", async (_req, res) => {
+  router.get("/", (_req, res) => {
     res.render("search");
   });
 
-  router.get("/searchMovie", async (req, res) => {
+  router.get("/movie", async (req, res) => {
     const movie = req.query.query;
 
     if (!movie || movie.trim() === "") {
       return res.status(400).json({ message: "Query is required" });
     }
-
-    console.log("Client requested /api/movies/search with query:", movie);
 
     try {
       const tmdbMovies = await tmdbService.search(movie).catch((error) => {
@@ -26,11 +22,11 @@ const getSearchRouter = () => {
         return []; 
       });
 
-      if (!tmdbMovies || tmdbMovies.length === 0) {
+      if (!tmdbMovies || tmdbMovies.total_results === 0) {
         return res.status(404).json({ message: "No movies found" });
       }
 
-      const filteredData = tmdbMovies.slice(0, 5).map(item => ({
+      const filteredData = tmdbMovies.results.slice(0, 5).map(item => ({
         name: item.title,
         releaseDate: item.release_date,
         poster: item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : null,

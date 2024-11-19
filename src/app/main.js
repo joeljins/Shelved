@@ -27,7 +27,7 @@ app.use("/api/auth", getAuthRouter());
 //routes protected
 app.use("/p/", authMiddleware);
 app.use("/p/", getHomeRouter());
-app.use("/p/", getSearchRouter())
+app.use("/p/search", getSearchRouter())
 app.use("/p/api/shelf", getShelfRouter());
 
 if (Deno.env.get("ENV") === "development") {
