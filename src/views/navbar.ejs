@@ -1,5 +1,8 @@
 <nav class="navbar">
-    <a href="/p/homepage">Home Page</a>
+    <div class="nav-links">
+        <a href="/p/homepage">Home Page</a>
+        <a href="/p/search">Search</a>
+    </div>
 
     <div class="dropdown">
         <a href="#" class="dropbtn"><%= username %></a>
@@ -19,10 +22,15 @@
         font-family: Arial, sans-serif;
         background-color: #1e1e1e;
         border-bottom: 1px solid #333;
-        position: fixed; /* Fixed position */
+        position: fixed;
         top: 0;
         width: 100%;
         z-index: 1000;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 0.5em;
     }
 
     .navbar a {
@@ -40,11 +48,11 @@
     .dropdown {
         position: relative;
         display: inline-block;
+        padding: 0.5em 1em;
     }
 
     .dropbtn {
         cursor: pointer;
-        padding: 0.5em 1em;
         color: #ff9800;
         font-weight: 500;
     }
