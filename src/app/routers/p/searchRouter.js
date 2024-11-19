@@ -1,16 +1,17 @@
 import { Router } from "express";
 import services from "services/index.js";
 
-const tmdbService = services["tmdb"];
+
 
 const getSearchRouter = () => {
   const router = Router();
+  const tmdbService = services["tmdb"];
 
   router.get("/search", async (_req, res) => {
     res.render("search");
   });
 
-  router.get("/api/movies/search", async (req, res) => {
+  router.get("/searchMovie", async (req, res) => {
     const movie = req.query.query;
 
     if (!movie || movie.trim() === "") {
@@ -20,7 +21,7 @@ const getSearchRouter = () => {
     console.log("Client requested /api/movies/search with query:", movie);
 
     try {
-      const tmdbMovies = await tmdbService.getMovie(movie).catch((error) => {
+      const tmdbMovies = await tmdbService.search(movie).catch((error) => {
         console.error("Error fetching TMDB movie:", error.message);
         return []; 
       });

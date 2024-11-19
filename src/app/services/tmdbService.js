@@ -42,10 +42,10 @@ export default class TMDBService extends Service {
     return this.fetchData(path, { language });
   }
 
-  async getMovie(name, language = this.defaultLanguage) {
+  async search(name,media_type = "movie") {
     if (!name) throw new Error("Name is required");
 
-    const path = `search/movie/${name}`;
+    const path = `search/${media_type}`;
     return await this.fetchData(path, { query: name, language });;
   }
 

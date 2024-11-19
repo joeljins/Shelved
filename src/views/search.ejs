@@ -138,7 +138,7 @@
 
         const query = document.getElementById("searchInput").value;
         const category = document.getElementById("searchCategory").value;
-        const endpoint = category === "movies" ? "/api/movies/search" : "/api/books/search";
+        const endpoint = category === "movies" ? `/p/searchMovie/` : "/api/books/search";
 
         const spinner = document.getElementById("spinner");
         const resultsContainer = document.getElementById("resultsContainer");

@@ -8,7 +8,7 @@ document
 
     try {
       // Fetch search results from the backend API
-      const response = await fetch(`/api/search?query=${query}`);
+      const response = await fetch(`/p/searchMovie?query=${query}`);
       const results = await response.json();
 
       // Get reference to the results container and clear previous results
