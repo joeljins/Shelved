@@ -4,7 +4,7 @@ import { getShelvesByUserId } from "crud/shelf.js";
 import services from "services/index.js";
 import { getDetailedShelfContent } from "middlewares/tmdbMiddleware.js";
 
-const getHomeRouter = () => {
+const getBaseRouter = () => {
   const router = Router();
 
   router.get("/homepage", async (req, res) => {
@@ -64,6 +64,10 @@ const getHomeRouter = () => {
     }
   });
 
+  router.get("/search", (_req, res) => {
+    res.render("search");
+  });
+
   router.get("/whoami", (_req, res) => {
     res.send(`Hello user: ${res.locals.username}`);
   });
@@ -71,4 +75,4 @@ const getHomeRouter = () => {
   return router;
 };
 
-export default getHomeRouter;
+export default getBaseRouter;

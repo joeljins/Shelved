@@ -5,10 +5,6 @@ const getSearchRouter = () => {
   const router = Router();
   const tmdbService = services["tmdb"];
 
-  router.get("/", (_req, res) => {
-    res.render("search");
-  });
-
   router.get("/movie", async (req, res) => {
     const movie = req.query.query;
 
@@ -32,7 +28,6 @@ const getSearchRouter = () => {
         poster: item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : null,
       }));
 
-      console.log("Filtered data:", filteredData);
       res.json(filteredData);
     } catch (error) {
       console.error("Error fetching from TMDb API:", error.message);
