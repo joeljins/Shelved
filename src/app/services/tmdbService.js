@@ -48,4 +48,22 @@ export default class TMDBService extends Service {
     const path = `search/${media_type}`;
     return await this.fetchData(path, { query: name });;
   }
+
+  async getGenre(genre="Action") {
+    if (!genre) throw new Error("Name is required");
+
+    const genresData = await this.fetchData(`genre/movie/list`);
+
+    const genreMatch = genresData.genres.find(
+      g => g.name.toLowerCase() === genre.toLowerCase()
+    );
+  
+    if (!genreMatch) {
+      throw new Error(`Genre "${genre}" not found`);
+    }
+    
+
+    const path = `discover/movie/${genre}`;
+    return await this.fetchData(path, { query: genre });;
+  }
 }

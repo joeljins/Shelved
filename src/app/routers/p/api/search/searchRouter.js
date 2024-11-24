@@ -35,6 +35,36 @@ const getSearchRouter = () => {
     }
   });
 
+  router.get("/movieGenre", async (req, res) => {
+    const genre = req.query.query;
+
+    if (!genre || genre.trim() === "") {
+      return res.status(400).json({ message: "Query is required" });
+    }
+
+    try {
+      const tmdbMovies = await tmdbService.getGenre(genre).catch((error) => {
+        console.error("Error fetching TMDB movie:", error.message);
+        return []; 
+      });
+
+      if (!tmdbMovies || tmdbMovies.total_results === 0) {
+        return res.status(404).json({ message: "No movies found" });
+      }
+
+      const filteredData = tmdbMovies.results.slice(0, 5).map(item => ({
+        name: item.title,
+        releaseDate: item.release_date,
+        poster: item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : null,
+      }));
+
+      res.json(filteredData);
+    } catch (error) {
+      console.error("Error fetching from TMDb API:", error.message);
+      res.status(500).json({ message: "Something went wrong" });
+    }
+  });
+
   return router;
 };
 
